@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed May 13 11:05:07 2020
-
-@author: seans
+author: Kenarapfaik
+url: https://github.com/arapfaik/scraping-glassdoor-selenium
 """
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 from selenium import webdriver
