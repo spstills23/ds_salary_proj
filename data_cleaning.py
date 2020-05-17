@@ -6,7 +6,7 @@ Created on Wed May 13 13:10:30 2020
 """
 import pandas as pd
 
-df = pd.read_csv('glassdoor_jobs.csv')
+df = pd.read_csv('C:/Users/seans/OneDrive/Desktop/Python/ds_salary_proj/glassdoor_jobs.csv')
 
 
 #salary parsing *
@@ -29,7 +29,7 @@ min_hr = minus_Kd.apply(lambda x:x.lower().replace('per hour','').replace('emplo
 #making the min and max salary their own col and AVG
 df['min_salary'] = min_hr.apply(lambda x:int(x.split('-')[0]))
 df['max_salary'] = min_hr.apply(lambda x:int(x.split('-')[1]))
-df['avegare_salary'] = (df.min_salary + df.max_salary) / 2
+df['average_salary'] = (df.min_salary + df.max_salary) / 2
 
 
 #COMPANY NAME TEXT ONLY
