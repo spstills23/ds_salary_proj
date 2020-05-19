@@ -81,7 +81,7 @@ np.mean(cross_val_score(rf,X_train,y_train,scoring = 'neg_mean_absolute_error', 
 
 #tune the model with gridSearchCV
 from sklearn.model_selection import GridSearchCV
-parameters = {'n_estimators':range(10,100,10), 'criterion':('mse','mae'), 'max_features':('auto','sqrt','log2')}
+parameters = {'n_estimators':range(10,60,5), 'criterion':('mse','mae'), 'max_features':('auto','sqrt','log2')}
 
 gs = GridSearchCV(rf,parameters,scoring='neg_mean_absolute_error',cv=3)
 gs.fit(X_train,y_train)
@@ -96,10 +96,22 @@ tpred_rf = gs.best_estimator_.predict(X_test)
 
 from sklearn.metrics import mean_absolute_error
 
+#testing the models to the y testing data
 mean_absolute_error(y_test,tpred_lm)
 mean_absolute_error(y_test,tpred_lml)
-mean_absolute_error(y_test,tpred_rf)
+mean_absolute_error(y_test,tpred_rf) #the best at 9.04K 
 
 mean_absolute_error(y_test,(tpred_lm+tpred_rf)/2)
 
+import pickle
+pickl = {'model': gs.best_estimator_}
+pickle.dump( pickl, open( 'model_file' + ".p", "wb" ) )
 
+file_name = "model_file.p"
+with open(file_name, 'rb') as pickled:
+    data = pickle.load(pickled)
+    model = data['model']
+
+model.predict(np.array(list(X_test.iloc[1,:])).reshape(1,-1))[0]
+
+list(X_test.iloc[1,:])
